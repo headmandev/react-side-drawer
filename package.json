@@ -1,0 +1,52 @@
+{
+  "name": "react-side-panel",
+  "version": "1.0.0",
+  "description": "Easy to use and flexible modal sidebar component for React (TypeScript)",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "style": "dist/styles.css",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup && cp src/styles.css dist/",
+    "dev": "tsup --watch",
+    "lint": "eslint src --ext .ts,.tsx",
+    "demo": "cd demo && npm install && npm run dev"
+  },
+  "keywords": [
+    "react",
+    "modal",
+    "sidebar",
+    "panel",
+    "side-panel",
+    "drawer"
+  ],
+  "author": "headmandev",
+  "license": "MIT",
+  "peerDependencies": {
+    "react": ">=18.0.0",
+    "react-dom": ">=18.0.0"
+  },
+  "dependencies": {
+    "body-scroll-lock": "^4.0.0-beta.0"
+  },
+  "devDependencies": {
+    "@types/body-scroll-lock": "^3.1.2",
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
+    "eslint": "^8.0.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "tsup": "^8.0.0",
+    "typescript": "^5.0.0"
+  }
+}
