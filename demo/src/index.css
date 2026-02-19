@@ -16,28 +16,232 @@ body {
   min-height: 100vh;
 }
 
-.demo-page {
-  padding: 2rem;
-  max-width: 56rem;
+/* Hero layout (from v3sp-example) */
+.hero {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #dc2626 0%, #b91c1c 50%, #991b1b 100%);
+  color: #fff;
+}
+
+.hero-head {
+  padding: 0.75rem 0;
+}
+
+.navbar {
+  padding: 0 1rem;
+}
+
+.navbar-inner {
+  max-width: 1200px;
   margin: 0 auto;
 }
 
-.demo-page h1 {
+.navbar-brand {
+  display: inline-flex;
+  align-items: center;
+  color: inherit;
+  text-decoration: none;
+  font-size: 1.5rem;
+}
+
+.navbar-brand:hover {
+  opacity: 0.9;
+}
+
+.icon {
+  display: inline-block;
+}
+
+.hero-body {
+  padding: 2rem 1rem 4rem;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.columns {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 3rem;
+  align-items: start;
+}
+
+@media (max-width: 900px) {
+  .columns {
+    grid-template-columns: 1fr;
+  }
+}
+
+.column-left {
+  position: relative;
+}
+
+.column-right {
+  min-width: 0;
+}
+
+@media (min-width: 1216px) {
+  .fixed-block {
+    position: sticky;
+    top: 1rem;
+  }
+}
+
+.hero-title {
   margin: 0 0 0.5rem;
   font-size: 1.75rem;
   font-weight: 700;
 }
 
-.demo-page p {
-  margin: 0 0 2rem;
-  color: #555;
+.hero-subtitle {
+  margin: 0 0 1.25rem;
+  opacity: 0.95;
+  line-height: 1.5;
 }
 
-.demo-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+.install-cmd {
+  display: inline-block;
+  padding: 0.5rem 0.75rem;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 6px;
+  font-family: ui-monospace, monospace;
+  font-size: 0.9rem;
+}
+
+.editor-wrap {
+  margin-top: 1.25rem;
+}
+
+/* Code block (Prism) */
+.code-block-wrap {
+  margin-top: 1.25rem;
+}
+
+.code-block-note {
+  margin-top: 1.25rem;
+}
+
+.code-block-note hr {
+  border: none;
+  border-top: 1px solid rgba(0, 0, 0, 0.15);
+  margin: 1rem 0;
+}
+
+.code-block-note p {
+  margin: 0.5rem 0;
+  font-size: 0.9rem;
+  color: #374151;
+}
+
+.code-block {
+  margin: 0;
+  background: #2d2d2d;
+  color: #ccc;
+  font-family: 'Fira Code', 'Fira Mono', Consolas, Menlo, Courier, monospace;
+  font-size: 12px;
+  line-height: 1.5;
+  padding: 10px;
+  border-radius: 10px;
+  overflow: auto;
+}
+
+.code-block code {
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+}
+
+.code-block:focus-within {
+  outline: none;
+}
+
+@media (max-width: 600px) {
+  body {
+    font-size: 0.9em;
+  }
+}
+
+/* Options section */
+.section-heading {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 0 0 1rem;
+}
+
+.section-heading.doc-title {
+  margin-top: 1.5rem;
+}
+
+.doc-subtitle {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 1.25rem 0 0.5rem;
+}
+
+.options-block {
+  margin-bottom: 1rem;
+}
+
+.control-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.5rem;
+  margin-bottom: 0.75rem;
+  align-items: center;
+}
+
+.control-label {
+  font-weight: 500;
+  margin-right: 0.25rem;
+}
+
+.radio-label,
+.checkbox-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  cursor: pointer;
+  user-select: none;
+}
+
+.checkbox-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.select-row {
+  display: flex;
+  flex-wrap: wrap;
   gap: 1rem;
-  margin-bottom: 2rem;
+  margin: 0.75rem 0;
+}
+
+.field-inline {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.field-label {
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.field-inline select {
+  padding: 0.35rem 0.5rem;
+  font-size: 0.9rem;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.15);
+  color: inherit;
+}
+
+.hero-cta {
+  margin-bottom: 1rem;
 }
 
 .demo-btn {
@@ -45,7 +249,7 @@ body {
   font-size: 1rem;
   font-weight: 500;
   color: #fff;
-  background: #2563eb;
+  background: #1e293b;
   border: none;
   border-radius: 8px;
   cursor: pointer;
@@ -53,58 +257,70 @@ body {
 }
 
 .demo-btn:hover {
-  background: #1d4ed8;
+  background: #334155;
 }
 
-.demo-btn.secondary {
-  background: #64748b;
+/* Documentation table */
+.table-wrap {
+  overflow-x: auto;
+  margin-bottom: 1rem;
 }
 
-.demo-btn.secondary:hover {
-  background: #475569;
+.doc-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+  background: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
-.demo-panel-content {
-  padding: 1rem;
+.doc-table th,
+.doc-table td {
+  padding: 0.5rem 0.75rem;
+  text-align: left;
+  border-bottom: 1px solid #e5e7eb;
 }
 
-.demo-panel-content h2 {
-  margin: 0 0 1rem;
-  font-size: 1.25rem;
-}
-
-.demo-panel-content p {
-  margin: 0 0 1rem;
-  color: #333;
-}
-
-.demo-footer {
-  padding: 1rem;
-  border-top: 1px solid #eee;
-  background: #fafafa;
-}
-
-.demo-footer button {
-  padding: 0.5rem 1rem;
-  font-size: 0.875rem;
-  cursor: pointer;
-  background: #2563eb;
-  color: #fff;
-  border: none;
-  border-radius: 6px;
-}
-
-.demo-footer button:hover {
-  background: #1d4ed8;
-}
-
-.section-title {
-  font-size: 1rem;
+.doc-table th {
+  width: 140px;
   font-weight: 600;
-  margin: 2rem 0 0.75rem;
-  color: #374151;
+  background: #f9fafb;
+  color: #111;
 }
 
-.section-title:first-child {
-  margin-top: 0;
+.doc-table td:nth-child(2) {
+  width: 80px;
+  color: #6b7280;
+}
+
+.doc-table td:nth-child(3) {
+  width: 180px;
+  font-size: 0.85rem;
+}
+
+.doc-table tbody tr:last-child th,
+.doc-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+@media (max-width: 600px) {
+  .doc-table {
+    font-size: 10px;
+  }
+}
+
+.github-link {
+  margin-top: 1.5rem;
+  font-size: 1rem;
+}
+
+.github-link a {
+  color: inherit;
+  text-decoration: underline;
+}
+
+.github-link a:hover {
+  opacity: 0.9;
 }

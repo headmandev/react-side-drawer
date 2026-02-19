@@ -9,11 +9,14 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "bulma": "^1.0.4",
+    "prismjs": "^1.29.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-side-panel": "file:.."
   },
   "devDependencies": {
+    "@types/prismjs": "^1.26.6",
     "@types/react": "^18.2.0",
     "@types/react-dom": "^18.2.0",
     "@vitejs/plugin-react": "^4.2.0",
