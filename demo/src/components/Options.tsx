@@ -312,7 +312,7 @@ export default function App() {
         <div
           style={{
             paddingTop: 70,
-            color: '#f14668',
+            color: '#631db8',
             backgroundColor: 'white',
           }}
         >
