@@ -56,18 +56,18 @@ export function Options() {
       form.panelDuration !== 300 ? `overlayDuration={${form.panelDuration}}` : '',
       form.transitionName !== 'auto' ? `transitionName="${form.transitionName}"` : '',
     ].filter(Boolean);
-    return res.length === 0 ? '' : '\n    ' + res.join('\n    ');
+    return res.length === 0 ? '' : '\n        ' + res.join('\n        ');
   }, [form]);
 
   const fixedHeaderCode = useMemo(
     () =>
       form.fixedHeader
         ? `
-  header={
-    <div style={{ textAlign: 'center', backgroundColor: '#2d2d2d', color: 'white' }}>
-      <h2 style={{ fontSize: '58px' }}>This is fixed header!</h2>
-    </div>
-  }`
+        header={
+          <div style={{ textAlign: 'center', backgroundColor: '#2d2d2d', color: 'white' }}>
+            <h2 style={{ fontSize: '58px' }}>This is fixed header!</h2>
+          </div>
+        }`
         : '',
     [form.fixedHeader]
   );
@@ -75,15 +75,15 @@ export function Options() {
   const bodyCode = useMemo(
     () =>
       `
-  >
-    <div style={{ paddingTop: 70, color: '#f14668' }}>
-      {Array.from({ length: 50 }, (_, i) => (
-        <h2 key={i} style={{ fontSize: '58px', fontWeight: 700, opacity: (i * 2) / 100, lineHeight: '43px' }}>
-          This is scrolled body!
-        </h2>
-      ))}
-    </div>
-  </SidePanel>`,
+      >
+        <div style={{ paddingTop: 70, color: '#f14668' }}>
+          {Array.from({ length: 50 }, (_, i) => (
+            <h2 key={i} style={{ fontSize: '58px', fontWeight: 700, opacity: (i * 2) / 100, lineHeight: '43px' }}>
+              This is scrolled body!
+            </h2>
+          ))}
+        </div>
+      </SidePanel>`,
     []
   );
 
@@ -91,11 +91,11 @@ export function Options() {
     () =>
       form.fixedFooter
         ? `
-  footer={
-    <div style={{ textAlign: 'center', backgroundColor: '#2d2d2d', color: 'white' }}>
-      <h2 style={{ fontSize: '58px' }}>This is fixed footer!</h2>
-    </div>
-  }`
+        footer={
+          <div style={{ textAlign: 'center', backgroundColor: '#2d2d2d', color: 'white' }}>
+            <h2 style={{ fontSize: '58px' }}>This is fixed footer!</h2>
+          </div>
+        }`
         : '',
     [form.fixedFooter]
   );
@@ -323,7 +323,7 @@ export default function App() {
                 fontSize: '58px',
                 fontWeight: 700,
                 opacity: (i * 2) / 100,
-                lineHeight: '43px',
+                lineHeight: '41px',
               }}
             >
               This is scrolled body!

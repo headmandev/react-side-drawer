@@ -23,7 +23,7 @@ import { PropertyDocumentation } from './components/PropertyDocumentation';
           <div className="columns">
             <div className="column">
               <div className="fixed">
-                <h1 className="title mb-2">REACT-SIDE-PANEL</h1>
+                <h1 className="title mb-2">react-side-panel</h1>
                 <p className="subtitle">
                 🔥 Easy to use and flexible
                   <br />
