@@ -7,7 +7,7 @@ export default defineConfig({
   resolve: {
     // Use library source for live debugging (no build step)
     alias: {
-      'react-side-panel': path.resolve(__dirname, '../src/index.ts'),
+      'react-side-drawer': path.resolve(__dirname, '../src/index.ts'),
     },
   },
 });

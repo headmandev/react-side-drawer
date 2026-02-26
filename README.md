@@ -1,60 +1,51 @@
-# react-side-panel
+# react-side-drawer
 
-Easy to use and flexible modal sidebar/drawer component for React (TypeScript). Port of [vue3-side-panel](https://github.com/headmandev/vue3-side-panel).
-
-## Demo (local debugging)
-
-Run the demo app to try the component locally before publishing:
-
-```bash
-npm run demo
-```
-
-This installs demo dependencies (if needed), starts the Vite dev server, and opens the library **source** via alias so you can edit `src/` and see changes with hot reload. The demo includes panels from all sides, header/footer, no-close overlay, scroll lock, custom width, and no-close-button variants.
+A React component that renders a **slide-out drawer** (or sidebar panel) from any edge of the screen—right, left, top, or bottom. It uses a modal overlay, optional scroll lock, and supports header, body, and footer slots. Written in TypeScript. Port of [vue3-side-panel](https://github.com/headmandev/vue3-side-panel).
 
 ## Install
 
 ```bash
-npm install react-side-panel
+npm install react-side-drawer
 # or
-yarn add react-side-panel
+yarn add react-side-drawer
 # or
-pnpm add react-side-panel
+pnpm add react-side-drawer
 ```
 
-## Peer dependencies
-
-- `react` >= 18
-- `react-dom` >= 18
+**Peer dependencies:** `react` and `react-dom` (>= 16.8.0).
 
 ## Usage
 
 Import the component and the default styles:
 
 ```tsx
-import { SidePanel } from 'react-side-panel';
-import 'react-side-panel/dist/styles.css';
+import { SidePanel } from 'react-side-drawer';
+import 'react-side-drawer/dist/styles.css';
 
 function App() {
   const [open, setOpen] = useState(false);
 
   return (
     <>
-      <button onClick={() => setOpen(true)}>Open panel</button>
+      <button onClick={() => setOpen(true)}>Open drawer</button>
       <SidePanel
         open={open}
         onOpenChange={setOpen}
         side="right"
         width="400px"
-        header={<h2>Panel title</h2>}
+        header={<h2>Title</h2>}
         footer={<button onClick={() => setOpen(false)}>Done</button>}
       >
-        <p>Panel body content goes here.</p>
+        <p>Drawer content goes here.</p>
       </SidePanel>
     </>
   );
 }
 ```
+
+Open/close is **controlled** via the `open` and `onOpenChange` props. The drawer is rendered in a portal and can slide in from `top`, `right`, `bottom`, or `left`.
+
+A **demo app** in the repo (`npm run demo` from the root) shows more examples (all sides, header/footer, scroll lock, custom width, etc.).
 
 ## API
 
@@ -69,18 +60,18 @@ function App() {
 | `idName` | `string` | `'rsp-container'` | Id for the portal container |
 | `hideCloseBtn` | `boolean` | `false` | Hide the default close button |
 | `noClose` | `boolean` | `false` | Prevent closing on overlay click |
-| `side` | `'top' \| 'right' \| 'bottom' \| 'left'` | `'right'` | Side the panel slides from |
+| `side` | `'top' \| 'right' \| 'bottom' \| 'left'` | `'right'` | Side the drawer slides from |
 | `rerender` | `boolean` | `false` | Unmount content when closed (remount on open) |
 | `zIndex` | `number \| 'auto'` | `'auto'` | z-index (auto = max on page) |
-| `width` | `string` | `'auto'` | Panel width (left/right) |
-| `height` | `string` | `'auto'` | Panel height (top/bottom) |
+| `width` | `string` | `'auto'` | Drawer width (left/right) |
+| `height` | `string` | `'auto'` | Drawer height (top/bottom) |
 | `lockScroll` | `boolean` | `false` | Lock body scroll when open |
 | `lockScrollHtml` | `boolean` | `true` | Set `overflow: hidden` on `html` when locking |
 | `overlayColor` | `string` | `'black'` | Overlay background color |
 | `overlayOpacity` | `number` | `0.5` | Overlay opacity (0–1) |
 | `overlayDuration` | `number` | `500` | Overlay transition duration (ms) |
-| `panelColor` | `string` | `'white'` | Panel background color |
-| `panelDuration` | `number` | `300` | Panel transition duration (ms) |
+| `panelColor` | `string` | `'white'` | Drawer background color |
+| `panelDuration` | `number` | `300` | Drawer transition duration (ms) |
 | `transitionName` | `string` | `slide-{side}` | Custom transition class name |
 | `headerClass` | `string` | `''` | Class for header container |
 | `bodyClass` | `string` | `''` | Class for body container |
@@ -93,7 +84,7 @@ function App() {
 
 ### SidePanelCloseButton
 
-Optional close button component (used by default inside the panel).
+Optional close button component (used by default inside the drawer).
 
 | Prop | Type | Description |
 |------|------|-------------|

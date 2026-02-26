@@ -1,5 +1,5 @@
 import { useState, useMemo, useRef } from 'react';
-import { SidePanel } from 'react-side-panel';
+import { SidePanel } from 'react-side-drawer';
 import { CodeBlock } from './CodeBlock';
 
 type Side = 'right' | 'left' | 'top' | 'bottom';
@@ -7,6 +7,7 @@ type Side = 'right' | 'left' | 'top' | 'bottom';
 interface FormState {
   lockScroll: boolean;
   closeButton: boolean;
+  customCloseButton: boolean;
   side: Side;
   fixedHeader: boolean;
   fixedFooter: boolean;
@@ -19,6 +20,7 @@ interface FormState {
 const initialForm: FormState = {
   lockScroll: true,
   closeButton: true,
+  customCloseButton: false,
   side: 'right',
   fixedHeader: false,
   fixedFooter: false,
@@ -47,7 +49,7 @@ export function Options() {
   const stringOptions = useMemo(() => {
     const res = [
       form.lockScroll ? 'lockScroll' : '',
-      !form.closeButton ? 'hideCloseBtn' : '',
+      !form.closeButton || form.customCloseButton ? 'hideCloseBtn' : '',
       form.rerender ? 'rerender' : '',
       form.side !== 'right' ? `side="${form.side}"` : '',
       ['left', 'right'].includes(form.side) ? 'width="600px"' : '',
@@ -59,18 +61,27 @@ export function Options() {
     return res.length === 0 ? '' : '\n        ' + res.join('\n        ');
   }, [form]);
 
-  const fixedHeaderCode = useMemo(
-    () =>
-      form.fixedHeader
-        ? `
+  const headerCode = useMemo(() => {
+    if (!form.fixedHeader && !form.customCloseButton) return '';
+    const parts: string[] = [];
+    if (form.fixedHeader) {
+      parts.push(`<div style={{ textAlign: 'center' }}>
+              <h2 style={{ fontSize: '58px', margin: 0 }}>This is fixed header!</h2>
+            </div>`);
+    }
+    if (form.customCloseButton) {
+      parts.push(`<div style={{ textAlign: 'right', padding: '0 16px' }}>
+              <button type="button" onClick={() => setOpen(false)}>Close</button>
+            </div>`);
+    }
+    const inner = parts.join('\n            ');
+    return `
         header={
-          <div style={{ textAlign: 'center', backgroundColor: '#2d2d2d', color: 'white' }}>
-            <h2 style={{ fontSize: '58px' }}>This is fixed header!</h2>
+          <div style={{ backgroundColor: '#2d2d2d', color: 'white' }}>
+            ${inner}
           </div>
-        }`
-        : '',
-    [form.fixedHeader]
-  );
+        }`;
+  }, [form.fixedHeader, form.customCloseButton]);
 
   const bodyCode = useMemo(
     () =>
@@ -103,7 +114,7 @@ export function Options() {
   const componentCodeExample = useMemo(
     () => `// BASIC EXAMPLE
 import { useState } from 'react';
-import { SidePanel } from 'react-side-panel';
+import { SidePanel } from 'react-side-drawer';
 
 export default function App() {
   const [open, setOpen] = useState(false);
@@ -112,16 +123,17 @@ export default function App() {
       <button onClick={() => setOpen(true)}>Open</button>
       <SidePanel
         open={open}
-        onOpenChange={setOpen}${stringOptions}${fixedHeaderCode}${fixedFooterCode}${bodyCode}
+        onOpenChange={setOpen}${stringOptions}${headerCode}${fixedFooterCode}${bodyCode}
     </>
   );
 }`,
-    [stringOptions, fixedHeaderCode, fixedFooterCode, bodyCode]
+    [stringOptions, headerCode, fixedFooterCode, bodyCode]
   );
 
   const exampleCloseButtonCode = `<SidePanel
   open={open}
   onOpenChange={setOpen}
+  hideCloseBtn
   header={
     <span onClick={() => setOpen(false)}> X </span>
   }
@@ -192,13 +204,35 @@ export default function App() {
               checked={form.closeButton}
               onChange={(e) => updateForm('closeButton', e.target.checked)}
             />
-            Close button
+            Default close button
+          </label>
+          <label className="checkbox-label">
+            <input
+              type="checkbox"
+              checked={form.customCloseButton}
+              onChange={(e) => {
+                const checked = e.target.checked;
+                setForm((f) => ({
+                  ...f,
+                  customCloseButton: checked,
+                  ...(checked ? { fixedHeader: true } : {}),
+                }));
+              }}
+            />
+            Custom close button (in header)
           </label>
           <label className="checkbox-label">
             <input
               type="checkbox"
               checked={form.fixedHeader}
-              onChange={(e) => updateForm('fixedHeader', e.target.checked)}
+              onChange={(e) => {
+                const checked = e.target.checked;
+                setForm((f) => ({
+                  ...f,
+                  fixedHeader: checked,
+                  ...(checked ? {} : { customCloseButton: false }),
+                }));
+              }}
             />
             Fixed header
           </label>
@@ -270,7 +304,7 @@ export default function App() {
         onClosed={() => console.log('onClosed: transition stopped and modal is closed')}
         lockScroll={form.lockScroll}
         rerender={form.rerender}
-        hideCloseBtn={!form.closeButton}
+        hideCloseBtn={!form.closeButton || form.customCloseButton}
         width={['left', 'right'].includes(form.side) ? '600px' : 'auto'}
         height={['top', 'bottom'].includes(form.side) ? '500px' : 'auto'}
         side={form.side}
@@ -278,15 +312,32 @@ export default function App() {
         overlayDuration={form.panelDuration}
         transitionName={form.transitionName === 'auto' ? undefined : form.transitionName}
         header={
-          form.fixedHeader ? (
-            <div
-              style={{
-                textAlign: 'center',
-                backgroundColor: '#2d2d2d',
-                color: 'white',
-              }}
-            >
-              <h2 style={{ fontSize: '58px' }}>This is fixed header!</h2>
+          form.fixedHeader || form.customCloseButton ? (
+            <div style={{ backgroundColor: '#2d2d2d', color: 'white' }}>
+              {form.fixedHeader && (
+                <div style={{ textAlign: 'center' }}>
+                  <h2 style={{ fontSize: '58px', margin: 0 }}>This is fixed header!</h2>
+                </div>
+              )}
+              {form.customCloseButton && (
+                <div style={{ textAlign: 'right', padding: '0 16px' }}>
+                  <button
+                    type="button"
+                    onClick={() => setIsOpened(false)}
+                    style={{
+                      padding: '8px 20px',
+                      fontSize: 18,
+                      cursor: 'pointer',
+                      backgroundColor: '#f14668',
+                      color: 'white',
+                      border: 'none',
+                      borderRadius: 6,
+                    }}
+                  >
+                    Close
+                  </button>
+                </div>
+              )}
             </div>
           ) : undefined
         }
@@ -336,12 +387,12 @@ export default function App() {
         <CodeBlock code={componentCodeExample} />
       </div>
 
-      {form.fixedHeader && (
+      {(form.fixedHeader || form.customCloseButton) && (
         <div className="code-block-note">
           <hr />
-          <p>
-            You can hide the default close button with <code>hideCloseBtn</code> because it is only
-            added to the default header. You can add your own close control in the header. Example:
+          <p className="mb-3">
+            With <code>hideCloseBtn</code> the default close button is hidden. Add your own close
+            control in the <code>header</code> (or elsewhere). Example:
           </p>
           <CodeBlock code={exampleCloseButtonCode} />
           <hr />
